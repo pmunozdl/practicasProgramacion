@@ -10,7 +10,7 @@ def computer_score(frame_scores):
             score += spare_score(frame_scores, index)
         elif frame_score == 'X':
             rolls = rolls + 1
-            if index < len(frame_scores) -2:
+            if index < len(frame_scores) - 2:
                 score += strike_score(frame_scores, index)
         elif frame_score != '-':
             score += int(frame_score)
@@ -45,33 +45,33 @@ class BowlingTests(unittest.TestCase):
         score = computer_score(frames)
         self.assertEqual(20,score)
 
-    def test_a_spare(self): #semipleno
+    def test_a_spare(self): #semipleno(duda)
        frames = "1/1111111111111111111"
        score = computer_score(frames)
        self.assertEqual(29,score)
 
     def test_two_spare(self): # dos semipleno
-       frames = "1/11111/1111111111111"
+       frames = "1/11111/111111111111"
        score = computer_score(frames)
        self.assertEqual(38,score)
 
     def test_a_strike(self): #un pleno
-        frames = "x1111111111111111111"
+        frames = "X1111111111111111111" #no cuenta un 1 porque se anula con el pleno
         score = computer_score(frames)
         self.assertEqual(30,score)
 
     def test_a_spare_then_strike(self): #semipleno y luego pleno
-        frames = "1/X11111111111111111"
+        frames = "1/X11111111111111111" #no cuenta un 1 porque se anula con el pleno
         score = computer_score(frames)
         self.assertEqual(48,score)
 
     def test_three_strikes(self): #tres plenos
-        frames = "XXX11111111111111111"
+        frames = "XXX11111111111111111" #no cuenta los 3 últimos 0 porque se anulan con el pleno
         score = computer_score(frames)
         self.assertEqual(30+21+12+14,score)
 
     def test_a_spare_with_zero(self): #semipleno
-       frames = "1/-1111111111111111111"
+       frames = "1/-11111111111111111"
        score = computer_score(frames)
        self.assertEqual(27,score)
     
@@ -81,11 +81,17 @@ class BowlingTests(unittest.TestCase):
         self.assertEqual(300,score)
     
     def test_spare_at_end(self):
-        frames = "------------------/5"
+        frames = "-----------------5/--" #añado dos más vacías para que no se salga de límites
         score = computer_score(frames)
-        self.assertEqual(15,score)
+        self.assertEqual(10,score)
+
+    def test_strike_at_end(self):
+        frames = "----------------X81"
+        score = computer_score(frames)
+        self.assertEqual(28,score)
 
     def test_almost_perfect_game(self):
-        frames = "XXXXXXXXXX9/"
+        frames = "XXXXXXXXXX9/" #añado dos más para que no se vaya de límites
         score = computer_score(frames)
         self.assertEqual(289,score)
+    
