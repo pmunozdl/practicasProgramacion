@@ -56,12 +56,22 @@ def computer_score(frame_scores):
     return score
 
 def spare_score(frame_scores, index):
-    return 10 - frame_value(frame_scores[index - 1]) + frame_value(frame_scores[index + 1])
+  # if frame_scores[index + 1] == '/':
+     #   return 10 - frame_value(frame_scores[index])
+    if index < 18:
+        return 10 - frame_value(frame_scores[index - 1]) + frame_value(frame_scores[index + 1])
+    elif index == 19:
+        return 10 - frame_value(frame_scores[index - 1])
 
 def strike_score(frame_scores, index):
     if frame_scores[index + 2] == '/':
         return 20
-    return 10 + frame_value(frame_scores[index + 1]) + frame_value(frame_scores[index + 2])
+    elif index == 18:  
+        return 10 + frame_value(frame_scores[index + 1])
+    elif index == 19:
+        return 10
+    elif index < 18:
+        return 10 + frame_value(frame_scores[index + 1]) + frame_value(frame_scores[index + 2])
 
 def frame_value(frame):
     if frame == 'X':
