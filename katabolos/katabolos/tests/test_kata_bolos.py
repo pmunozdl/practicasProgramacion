@@ -1,40 +1,11 @@
+
 import unittest
-
-def computer_score(frame_scores):
-    score = 0
-    index = 0
-    rolls = 0
-    while index < len(frame_scores) and rolls < 20:
-        frame_score= frame_scores[index]
-        if frame_score == "/":
-            score += spare_score(frame_scores, index)
-        elif frame_score == 'X':
-            rolls = rolls + 1
-            if index < len(frame_scores) - 2:
-                score += strike_score(frame_scores, index)
-        elif frame_score != '-':
-            score += int(frame_score)
-        index = index + 1
-        rolls = rolls + 1
-    return score
-
-def spare_score(frame_scores, index):
-    return 10 - frame_value(frame_scores[index - 1]) + frame_value(frame_scores[index + 1])
-
-def strike_score(frame_scores, index):
-    if frame_scores[index + 2] == '/':
-        return 20
-    return 10 + frame_value(frame_scores[index + 1]) + frame_value(frame_scores[index + 2])
-
-def frame_value(frame):
-    if frame == 'X':
-        return 10
-    if frame == '-':
-        return 0
-    return int(frame)
+import src.katabolos.kataBolos
+from src.katabolos.kataBolos import computer_score
 
     
-class BowlingTests(unittest.TestCase):
+
+class test_kata_bolos(unittest.TestCase):
     def test_all_zeros(self):
         frames = "--------------------"
         score = computer_score(frames)
@@ -46,14 +17,14 @@ class BowlingTests(unittest.TestCase):
         self.assertEqual(20,score)
 
     def test_a_spare(self): #semipleno(duda)
-       frames = "1/1111111111111111111"
-       score = computer_score(frames)
-       self.assertEqual(29,score)
+        frames = "1/1111111111111111111"
+        score = computer_score(frames)
+        self.assertEqual(29,score)
 
     def test_two_spare(self): # dos semipleno
-       frames = "1/11111/111111111111"
-       score = computer_score(frames)
-       self.assertEqual(38,score)
+        frames = "1/11111/111111111111"
+        score = computer_score(frames)
+        self.assertEqual(38,score)
 
     def test_a_strike(self): #un pleno
         frames = "X1111111111111111111" #no cuenta un 1 porque se anula con el pleno
@@ -71,15 +42,15 @@ class BowlingTests(unittest.TestCase):
         self.assertEqual(30+21+12+14,score)
 
     def test_a_spare_with_zero(self): #semipleno
-       frames = "1/-11111111111111111"
-       score = computer_score(frames)
-       self.assertEqual(27,score)
-    
+        frames = "1/-11111111111111111"
+        score = computer_score(frames)
+        self.assertEqual(27,score)
+        
     def test_perfect_game(self):
         frames = "XXXXXXXXXXXX" #añadimos dos más por las tiradas extras con plenos
         score = computer_score(frames)
         self.assertEqual(300,score)
-    
+        
     def test_spare_at_end(self):
         frames = "-----------------5/--" #añado dos más vacías para que no se salga de límites
         score = computer_score(frames)
