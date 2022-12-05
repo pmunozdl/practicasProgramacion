@@ -2,14 +2,31 @@
 
 def longitud_dni(dni):
     longitud = len(dni)
-    while longitud == 9:
-        for i in range(9):
-            try:
-                isinstance(int(str(dni)[:8]),int)
-                return longitud
-            except:
-                return ValueError
+    if longitud == 9:
+        if dni[0:8].isdigit():
+            return longitud
+        else: 
+            return ValueError 
     else:
-       return ValueError
+        return ValueError
+        
 
-
+ #isinstance(int(str(dni)[:8]),int)
+ ##
+ #ultimo = dni[8]
+ #               if  ultimo == str:
+ #                   if ultimo == "I":
+  #                      return longitud == ValueError
+   #                 elif ultimo == "O":
+    #                    return longitud == ValueError
+     #               elif ultimo == "Ñ":
+      #                  return longitud == ValueError
+       #             elif ultimo == "U":
+        #                return longitud == ValueError
+         #       else:
+          #          return longitud
+           # except:
+            #    return ValueError
+   # else:
+   #     return ValueError
+###
