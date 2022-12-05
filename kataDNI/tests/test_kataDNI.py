@@ -15,5 +15,5 @@ class test_kataDNI(unittest.TestCase):
     def test_8_cifras(self): #no deberia pasar
         dni = "F98I01Q1"
         longitud = longitud_dni(dni)
-        self.assertEqual(8,longitud)
+        self.assertEqual(ValueError,longitud)
     
