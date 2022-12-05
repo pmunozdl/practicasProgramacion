@@ -4,7 +4,10 @@ def longitud_dni(dni):
     longitud = len(dni)
     if longitud == 9:
         if dni[0:8].isdigit():
-            return longitud
+            if dni[8].isdigit() == False:
+                return longitud
+            else:
+                return ValueError
         else: 
             return ValueError 
     else:
