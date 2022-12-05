@@ -23,5 +23,5 @@ class test_kataDNI(unittest.TestCase):
     def test_dni_letra_invalida(self):
         dni = "12345678O"
         longitud = longitud_dni(dni)
-        self.assertEqual(9,longitud)
+        self.assertEqual(ValueError,longitud)
     
