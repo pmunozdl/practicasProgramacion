@@ -28,13 +28,13 @@ def dniSuma(dni):
 '''
 
 def dniLetra(dni):
-    letras = ["T","R","W", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"]
+    letras = ["T","R","W","A","G","M","Y","F","P","D","X","B","N","J", "Z","S","Q","V","H","L","C","K","E"]
     rango = dni[0:8]
     if rango.isdigit():
         x = int(dni[0]) + int(dni[1]) + int(dni[2]) + int(dni[3]) + int(dni[4]) + int(dni[5]) + int(dni[6]) + int(dni[7]) 
         #falta hacer la suma para dni[0:8]
         ans = x % 23
-        if (dni[8]) == letras[ans+1]:
+        if (dni[8]) == letras[ans]:
             return True
         else:
             return ValueError

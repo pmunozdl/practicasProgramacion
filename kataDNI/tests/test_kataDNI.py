@@ -26,7 +26,7 @@ class test_kataDNI(unittest.TestCase):
         longitud = longitud_dni(dni)
         self.assertEqual(9,longitud)
     #5
-    def test_dni_letra_invalida(self):
+    def test_dni_letra_invalida_O(self):
         dni = "12345678O"
         longitud = longitud_dni(dni)
         self.assertEqual(ValueError,longitud)
@@ -47,7 +47,7 @@ class test_kataDNI(unittest.TestCase):
         self.assertEqual(ValueError,longitud)
     #9
     def test_letra_buena(self):
-        dni = "06605515F"
+        dni = "00000000T"
         bueno = dniLetra(dni)
         self.assertEqual(True,bueno)
     #10
@@ -55,6 +55,7 @@ class test_kataDNI(unittest.TestCase):
         dni = "00000001P"
         bueno = dniLetra(dni)
         self.assertEqual(ValueError,bueno)
+        
    
     
     
