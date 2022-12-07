@@ -2,7 +2,6 @@ import unittest
 import src.kataDNI
 from src.kataDNI import longitud_dni
 from src.kataDNI import dniLetra
-from src.kataDNI import dniSuma
 from src.kataDNI import nie 
 
 class test_kataDNI(unittest.TestCase):
@@ -47,10 +46,15 @@ class test_kataDNI(unittest.TestCase):
         longitud = longitud_dni(dni)
         self.assertEqual(ValueError,longitud)
     #9
-    def test_dni_letra_invalida_(self):
-        dni = "12345678U"
-        longitud = longitud_dni(dni)
-        self.assertEqual(ValueError,longitud)
+    def test_letra_buena(self):
+        dni = "06605515F"
+        bueno = dniLetra(dni)
+        self.assertEqual(True,bueno)
+    #10
+    def test_letra_erronea(self):
+        dni = "00000001P"
+        bueno = dniLetra(dni)
+        self.assertEqual(ValueError,bueno)
    
     
     

@@ -20,19 +20,24 @@ def longitud_dni(dni):
             return ValueError 
     else:
         return ValueError
-
+'''
 def dniSuma(dni):
     letras = []
-    for i in len(dni)-1:
-        respuesta = sum(letras[0:8])
+    respuesta = sum(letras[0:8])
     return respuesta
+'''
 
 def dniLetra(dni):
     letras = ["T","R","W", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"]
-    x = dniSuma(dni)
-    ans = x % 23
-    if dni[8] == letras[ans-1]:
-        return True
+    rango = dni[0:8]
+    if rango.isdigit():
+        x = int(dni[0]) + int(dni[1]) + int(dni[2]) + int(dni[3]) + int(dni[4]) + int(dni[5]) + int(dni[6]) + int(dni[7]) 
+        #falta hacer la suma para dni[0:8]
+        ans = x % 23
+        if (dni[8]) == letras[ans+1]:
+            return True
+        else:
+            return ValueError
     else:
         return ValueError
 
