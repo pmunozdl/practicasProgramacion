@@ -1,4 +1,3 @@
-from functools import reduce
 
 def longitud_dni(dni):
     longitud = len(dni)
@@ -25,21 +24,20 @@ def longitud_dni(dni):
 def dniSuma(dni):
     letras = []
     for i in len(dni)-1:
-        letras.append(dni[i])
-    return dni.reduce((a,b) => a+b,0)
+        respuesta = sum(letras[0:8])
+    return respuesta
 
 def dniLetra(dni):
     letras = ["T","R","W", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"]
     x = dniSuma(dni)
-    ans = x / 23
+    ans = x % 23
     if dni[8] == letras[ans-1]:
-        return 
+        return True
     else:
         return ValueError
 
 def nie(dni):
     x = longitud_dni(dni)
-    print(x)
     if dni[0] == 0:
         return "X"
     elif dni[0] == 1:
