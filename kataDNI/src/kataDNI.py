@@ -42,14 +42,18 @@ def dniLetra(dni):
         return ValueError
 
 def nie(dni):
-        if dni[0] == "0":
-            nie_valido = dni.replace(dni[0],"X")
+        lista = list(dni)
+        if lista[0] == "0":
+            lista[0] = "X"
+            nie_valido = ''.join(lista)
             return nie_valido
-        elif dni[0] == "1":
-            nie_valido = dni.replace(dni[0],"Y")
+        elif lista[0] == "1":
+            lista[0] = "Y"
+            nie_valido = ''.join(lista)
             return nie_valido
-        elif dni[0] == "2":
-            nie_valido = dni.replace(dni[0],"Z")
+        elif lista[0] == "2":
+            lista[0] = "Z"
+            nie_valido = ''.join(lista)
             return nie_valido
         else:
             return dni
