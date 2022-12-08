@@ -55,6 +55,25 @@ class test_kataDNI(unittest.TestCase):
         dni = "00000001P"
         bueno = dniLetra(dni)
         self.assertEqual(ValueError,bueno)
+    #11
+    def test_nie_valido_0(self):
+        dni = "00000000T"
+        bueno = nie(dni)
+        self.assertEqual("X0000000T",bueno)
+     #12
+    def test_nie_valido_1(self):
+        dni = "10000000R"
+        bueno = nie(dni)
+        self.assertEqual("Y0000000R",bueno)
+     #13
+    def test_nie_valido_2(self):
+        dni = "20000000W"
+        bueno = nie(dni)
+        self.assertEqual("Z0000000W",bueno)
+    def test_nie_caso_especial(self):
+        dni = "01200000A"
+        bueno = nie(dni)
+        self.assertEqual("X1200000A",bueno)
         
    
     

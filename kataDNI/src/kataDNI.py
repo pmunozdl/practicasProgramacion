@@ -42,12 +42,16 @@ def dniLetra(dni):
         return ValueError
 
 def nie(dni):
-    x = longitud_dni(dni)
-    if dni[0] == 0:
-        return "X"
-    elif dni[0] == 1:
-        return "Y"
-    elif dni[0] == 2:
-        return "Z"
+        if dni[0] == "0":
+            nie_valido = dni.replace(dni[0],"X")
+            return nie_valido
+        elif dni[0] == "1":
+            nie_valido = dni.replace(dni[0],"Y")
+            return nie_valido
+        elif dni[0] == "2":
+            nie_valido = dni.replace(dni[0],"Z")
+            return nie_valido
+        else:
+            return dni
 
 
