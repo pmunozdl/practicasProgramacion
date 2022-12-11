@@ -80,10 +80,10 @@ def dni_valido(dni):
                     if nie_valido[8] == "U" or nie_valido[8] == "I" or nie_valido[8] == "Ñ" or nie_valido[8] == "O":
                         return ValueError
                     else:
-                        x = int(dni[0]) + int(dni[1]) + int(dni[2]) + int(dni[3]) + int(dni[4]) + int(dni[5]) + int(dni[6]) + int(dni[7]) 
+                        x = int(nie_valido[0]) + int(nie_valido[1]) + int(nie_valido[2]) + int(nie_valido[3]) + int(nie_valido[4]) + int(nie_valido[5]) + int(nie_valido[6]) + int(nie_valido[7]) 
                         #falta hacer la suma para dni[0:8]
                         ans = x % 23
-                        if (dni[8]) == letras[ans]:
+                        if (nie_valido[8]) == letras[ans]:
                             return True
                         else:
                             return ValueError
@@ -99,10 +99,10 @@ def dni_valido(dni):
                     if nie_valido[8] == "U" or nie_valido[8] == "I" or nie_valido[8] == "Ñ" or nie_valido[8] == "O":
                         return ValueError
                     else:
-                        x = int(dni[0]) + int(dni[1]) + int(dni[2]) + int(dni[3]) + int(dni[4]) + int(dni[5]) + int(dni[6]) + int(dni[7]) 
+                        x = int(nie_valido[0]) + int(nie_valido[1]) + int(nie_valido[2]) + int(nie_valido[3]) + int(nie_valido[4]) + int(nie_valido[5]) + int(nie_valido[6]) + int(nie_valido[7]) 
                         #falta hacer la suma para dni[0:8]
                         ans = x % 23
-                        if (dni[8]) == letras[ans]:
+                        if (nie_valido[8]) == letras[ans]:
                             return True
                         else:
                             return ValueError
@@ -118,10 +118,10 @@ def dni_valido(dni):
                     if nie_valido[8] == "U" or nie_valido[8] == "I" or nie_valido[8] == "Ñ" or nie_valido[8] == "O":
                         return ValueError
                     else:
-                        x = int(dni[0]) + int(dni[1]) + int(dni[2]) + int(dni[3]) + int(dni[4]) + int(dni[5]) + int(dni[6]) + int(dni[7]) 
+                        x = int(nie_valido[0]) + int(nie_valido[1]) + int(nie_valido[2]) + int(nie_valido[3]) + int(nie_valido[4]) + int(nie_valido[5]) + int(nie_valido[6]) + int(nie_valido[7]) 
                         #falta hacer la suma para dni[0:8]
                         ans = x % 23
-                        if (dni[8]) == letras[ans]:
+                        if (nie_valido[8]) == letras[ans]:
                             return True
                         else:
                             return ValueError
