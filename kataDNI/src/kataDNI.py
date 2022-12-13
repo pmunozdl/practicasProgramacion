@@ -1,6 +1,6 @@
 
 class kataDNI:
-    def longitud_dni(self, dni):
+    def dni_valido(dni):
         longitud = len(dni)
         if longitud == 9:
             if dni[0:8].isdigit():
@@ -22,7 +22,7 @@ class kataDNI:
         else:
             return ValueError
 
-    def dniLetra(self,dni):
+    def dniLetra(dni):
         letras = ["T","R","W","A","G","M","Y","F","P","D","X","B","N","J", "Z","S","Q","V","H","L","C","K","E"]
         rango = dni[0:8]
         if rango.isdigit():
@@ -36,7 +36,7 @@ class kataDNI:
         else:
             return ValueError
 
-    def nie(self,dni):
+    def nie(dni):
             lista = list(dni)
             if lista[0] == "X":
                 lista[0] = "0"
