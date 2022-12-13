@@ -1,6 +1,22 @@
 
-class kataDNI:
-    def dni_valido(dni):
+def validador(dni):
+    if dni[0] == "X" or dni[0] == "Y" or dni[0] == "Z":
+        dni_nie = nie(dni) 
+        valido = dni_valido(dni_nie)
+        return dniLetra(valido)
+      
+    elif dni[0].isdigit():
+        valido = dni_valido(dni)
+        if valido == dni:
+            return dniLetra(valido)
+        else: 
+            return ValueError
+    else:
+        return ValueError
+
+        
+
+def dni_valido(dni):
         longitud = len(dni)
         if longitud == 9:
             if dni[0:8].isdigit():
@@ -14,7 +30,7 @@ class kataDNI:
                     elif (dni[8] == "Ñ"):
                         return ValueError
                     else:
-                        return longitud
+                        return dni
                 else:
                     return ValueError
             else: 
@@ -22,7 +38,7 @@ class kataDNI:
         else:
             return ValueError
 
-    def dniLetra(dni):
+def dniLetra(dni):
         letras = ["T","R","W","A","G","M","Y","F","P","D","X","B","N","J", "Z","S","Q","V","H","L","C","K","E"]
         rango = dni[0:8]
         if rango.isdigit():
@@ -36,7 +52,7 @@ class kataDNI:
         else:
             return ValueError
 
-    def nie(dni):
+def nie(dni):
             lista = list(dni)
             if lista[0] == "X":
                 lista[0] = "0"
@@ -52,7 +68,7 @@ class kataDNI:
                 return nie_valido
             else:
                 return dni
-    '''
+'''
 
 def dni_valido(dni):
     longitud = len(dni)
