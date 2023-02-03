@@ -24,22 +24,22 @@ class test_kataDNI(unittest.TestCase):
         dni = "12345678J"
         longitud = validador(dni)
         self.assertEqual(True,longitud)
-    #5 falla
+    #5 
     def test_dni_letra_invalida_O(self):
         dni = "12345678O"
         longitud = validador(dni)
         self.assertEqual(ValueError,longitud)
-    #6 falla
+    #6 
     def test_dni_letra_invalida_I(self):
         dni = "12345678I"
         longitud = validador(dni)
         self.assertEqual(ValueError,longitud)
-    #7 falla 
+    #7  
     def test_dni_letra_invalida_Ñ(self):
         dni = "12345678Ñ"
         longitud = validador(dni)
         self.assertEqual(ValueError,longitud)
-    #8 falla
+    #8 
     def test_dni_letra_invalida_U(self):
         dni = "12345678U"
         longitud = validador(dni)
