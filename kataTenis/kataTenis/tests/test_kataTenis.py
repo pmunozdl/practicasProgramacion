@@ -1,6 +1,5 @@
 import unittest
-
-from tennis import Set, Game, DisplayScore
+import kataTenis
 
 
 class Test(unittest.TestCase):
