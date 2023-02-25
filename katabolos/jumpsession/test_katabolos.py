@@ -1,4 +1,4 @@
-#lo ejecuto con python -m unitest -v test_katabolos
+#lo ejecuto con python3 -m unittest -v test_katabolos
 import unittest
 from katabolos import Partida
 class TestBolos(unittest.TestCase):
