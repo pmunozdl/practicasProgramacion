@@ -1,6 +1,6 @@
 class PartidaBolos:
         
-    def resultadoPartida(self, partida):
+    def bowling_score(self,partida):
         resultado = 0
         for numero_ronda, ronda in partida.items():
             if ronda[1] != '-':

@@ -37,18 +37,18 @@ class kataBolos:
         return self.roll[rollIndex] + self.rolls[rollIndex + 1]        
 
 '''
-def computer_score(frame_scores):
+def bowling_score(frames):
     score = 0
     index = 0
     rolls = 0
-    while index < len(frame_scores) and rolls < 20:
-        frame_score= frame_scores[index]
+    while index < len(frames) and rolls < 20:
+        frame_score= frames[index]
         if frame_score == "/":
-            score += spare_score(frame_scores, index)
+            score += spare_score(frames, index)
         elif frame_score == 'X':
             rolls = rolls + 1
-            if index < len(frame_scores) - 2:
-                score += strike_score(frame_scores, index)
+            if index < len(frames) - 2:
+                score += strike_score(frames, index)
         elif frame_score != '-':
             score += int(frame_score)
         index = index + 1
