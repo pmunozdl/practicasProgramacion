@@ -42,6 +42,7 @@ def bowling_score(frames):
     index = 0
     rolls = 0
     while index < len(frames) and rolls < 20:
+        frames = frames.replace(" ", "")
         frame_score= frames[index]
         if frame_score == "/":
             score += spare_score(frames, index)

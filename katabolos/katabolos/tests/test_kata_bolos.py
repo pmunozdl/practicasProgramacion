@@ -12,7 +12,7 @@ class test_kata_bolos(unittest.TestCase):
         self.assertEqual(0,score)
 
     def test_all_ones(self):
-        frames = "11111111111111111111"
+        frames = "11 111111111111111111"
         score = bowling_score(frames)
         self.assertEqual(20,score)
 
@@ -65,4 +65,9 @@ class test_kata_bolos(unittest.TestCase):
         frames = "XXXXXXXXXX9/" #añado dos más por las normas
         score = bowling_score(frames)
         self.assertEqual(289,score)
+    
+    def test_codewars_uno(self):
+        frames = "5/ 4/ 3/ 2/ 1/ 0/ X 9/ 4/ 8/8" #falla en el semipleno del finañ
+        score = bowling_score(frames)
+        self.assertEqual(105, score)
     
