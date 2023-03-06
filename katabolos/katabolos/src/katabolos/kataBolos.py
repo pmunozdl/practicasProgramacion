@@ -48,6 +48,7 @@
 def bowling_score (frames):
         score = 0
         frames = frames.replace(" ", "")
+        print(frames)
         size = len(frames)
         if size <= 20:
             for e in frames:
@@ -58,8 +59,13 @@ def bowling_score (frames):
                     elif posicion == 19:
                         score += 10 - frame_value(frames[posicion- 1])
                     frames = frames[posicion+1:]
+                    print(frames)
                 elif e == "X":
-                    pass #método del pleno
+                    posicion = frames.index("X")
+                    if posicion < 19:
+                        score += 10 + frame_value(frames[posicion + 1]) + frame_value(frames[posicion + 2]) 
+                    frames = frames[posicion+1:]
+                    print(frames)
                 elif e == "-":
                     score = score
                 else: 
@@ -77,5 +83,5 @@ def frame_value(frame):
         if frame == '-':
             return 0
         return int(frame)
-bowling_score("3/0/4/81")
+bowling_score("7/2242X53X63")
 #restricciones a aplicar: las sumas de cada tirada no puede ser superior a 10
