@@ -6,6 +6,9 @@ from src.katabolos.kataBolos import kataBolos
     #pytest tests/test_kata_bolos.py
     #python3 -m unittest -v test_kata_bolos
 
+#simulador de tiradas:
+    #bowlinggenius.com
+
 class test_kata_bolos(unittest.TestCase):
     def escenario_partida(self, frames, resultado_ok):
         score = kataBolos()
@@ -61,5 +64,5 @@ class test_kata_bolos(unittest.TestCase):
     
     def test_codewars_uno(self):
         frames = "5/ 4/ 3/ 2/ 1/ 0/ X 9/ 4/ 8/8" #falla en el semipleno del final
-        self.escenario_partida(frames,105)
+        self.escenario_partida(frames,150)
     
