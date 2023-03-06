@@ -51,13 +51,13 @@ def bowling_score (frames):
         size = len(frames)
         if size <= 20:
             for e in frames:
-                posicion = frames.index("/")
-                print(posicion)
                 if e == "/": #falta el semipleno al final. Falla la resta de la tirada de delante
+                    posicion = frames.index("/")
                     if posicion < 19:
                         score += 10 + frame_value(frames[posicion + 1]) - frame_value(frames[posicion - 1])
                     elif posicion == 19:
                         score += 10 - frame_value(frames[posicion- 1])
+                    frames = frames[posicion+1:]
                 elif e == "X":
                     pass #método del pleno
                 elif e == "-":
@@ -77,5 +77,5 @@ def frame_value(frame):
         if frame == '-':
             return 0
         return int(frame)
-bowling_score("3/0/4/8")
+bowling_score("3/0/4/81")
 #restricciones a aplicar: las sumas de cada tirada no puede ser superior a 10
