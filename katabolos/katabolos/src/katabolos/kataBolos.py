@@ -62,7 +62,6 @@ class kataBolos:
                     frames = frames[posicion+1:]
                 elif e == "X":
                     print(frames)
-                    frames = frames.replace("X", "0X")
                     posicion = frames.index("X")
                     print(frames)
                     if posicion + 1 == "0" and posicion + 2 == "X":
