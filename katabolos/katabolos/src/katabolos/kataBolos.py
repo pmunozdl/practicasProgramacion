@@ -49,7 +49,7 @@ class kataBolos:
         score = 0
         frames = frames.replace(" ", "")
         size = len(frames)
-        for e in frames: #poner range(size)
+        for e in frames: 
                 if e == "/": #falta el semipleno al final. Falla la resta de la tirada de delante
                     posicion = frames.index("/")
                     if posicion < 19:
@@ -84,15 +84,6 @@ class kataBolos:
                    score += int(e) #suma los valores si no hay pleno, o semipleno
         print (score)
         return score
-            # elif size > 20 and frames[19] == "X": 
-            #     size = size + 2
-            #     score += 10 + self.frame_value(frames[posicion + 1]) + self.frame_value(frames[posicion + 2]) 
-            # elif size > 20 and frames[19] == "/": 
-            #     size = size + 1
-            #     score += 10 - self.frame_value(frames[posicion- 1])
-
-        # else(para el tamaño):
-        #     raise TypeError ("no existe esa tirada")
         
     def frame_value(self, frame):
         if frame == 'X':
@@ -102,8 +93,36 @@ class kataBolos:
         return int(frame)
     def get_frames(self, frames):
         self.frames = frames
+       
+    def calcularRonda(self, frames):
+        numerorondas = 0 #tiene que llegar a 10
+        tiradas = 0
+        for e in range(0,len(frames)): #inicio, fin y paso
+            print("lista",frames)
+            print("elemento", frames[e])
+            if numerorondas < 10:
+                print("posicion", e)
+                if str(frames[e]) == "X":
+                    numerorondas += 1
+                elif str(frames[e]) == "/" or str(frames[e]) == "-" or str(e).isdigit() == True:
+                    if e <= (len(frames)-1):
+                        tiradas += 1
+                        print("tiradas", tiradas)
+                        if tiradas % 2 == 0:
+                            numerorondas += 1
+                        elif str(frames[e+1]) == "X":
+                             tiradas = tiradas - 1
+                             numerorondas += 0 
+                else:
+                     raise ValueError("no vale")
+                print("numero de rondas",numerorondas)    
+            elif numerorondas == 10:
+                pass
+            else:
+                raise ValueError("solo puede haber 10 rondas")
+        return(numerorondas)
     #def restricciones(self, frames):
-
+#hacer un método de calcular ronda, que me permita saber en qué ronda estoy 
 #bowling_score("XXX429")
 #restricciones a aplicar: las sumas de cada tirada no puede ser superior a 10
 #plenos solo en posiciones pares. Hacer que X = X0
