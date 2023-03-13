@@ -61,8 +61,13 @@ class kataBolos:
                             score += 10 - self.frame_value(frames[posicion- 1])
                     frames = frames[posicion+1:]
                 elif e == "X":
+                    print(frames)
+                    frames = frames.replace("X", "0X")
                     posicion = frames.index("X")
-                    if posicion < 19:
+                    print(frames)
+                    if posicion + 1 == "0" and posicion + 2 == "X":
+                            score += 10 + self.frame_value(frames[posicion + 1]) + self.frame_value(frames[posicion + 2])
+                    elif posicion < 19:
                         score += 10 + self.frame_value(frames[posicion + 1]) + self.frame_value(frames[posicion + 2]) 
                     elif posicion > 18:
                         if posicion + 2 == "/":
