@@ -22,7 +22,7 @@ class test_kata_bolos(unittest.TestCase):
         frames = "11 111111111111111111"
         self.escenario_partida(frames, 20)
 
-    def test_a_spare(self): #semipleno(duda)
+    def test_a_spare(self): 
         frames = "1/111111111111111111"
         self.escenario_partida(frames, 29)
 
@@ -51,8 +51,8 @@ class test_kata_bolos(unittest.TestCase):
         self.escenario_partida(frames,300)
         
     def test_spare_at_end(self):
-        frames = "------------------5/" 
-        self.escenario_partida(frames,10)
+        frames = "------------------5/4" 
+        self.escenario_partida(frames,14)
 
     def test_strike_at_end(self): ## único que falla
         frames = "------------------X-"
