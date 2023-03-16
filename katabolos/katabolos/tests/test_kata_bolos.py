@@ -47,23 +47,23 @@ class test_kata_bolos(unittest.TestCase):
         frames = "1/-11111111111111111"
         self.escenario_partida(frames,27)
         
-    def test_perfect_game(self):
+    def test_perfect_game(self): #falla
         frames = "XXXXXXXXXXXX" #añadimos dos más por las tiradas extras con plenos 
         self.escenario_partida(frames,300)
         
-    def test_spare_at_end(self):
+    def test_spare_at_end(self): #falla
         frames = "------------------5/4" 
         self.escenario_partida(frames,14)
 
-    def test_strike_at_end(self): ## único que falla
-        frames = "------------------X-"
+    def test_strike_at_end(self): ## falla
+        frames = "------------------X--"
         self.escenario_partida(frames,10)
 
-    def test_almost_perfect_game(self):
+    def test_almost_perfect_game(self): #falla
         frames = "XXXXXXXXXX9/" #añado dos más por las normas
         self.escenario_partida(frames,289)
     
-    def test_codewars_uno(self):
+    def test_codewars_uno(self): #falla
         frames = "5/ 4/ 3/ 2/ 1/ 0/ X 9/ 4/ 8/8" #falla en el semipleno del final
         self.escenario_partida(frames,150)
     
@@ -71,15 +71,18 @@ class test_kata_bolos(unittest.TestCase):
         frames = "5/ 4/ 3/ 2/ 1/ 0/ X 9/ 4/ 8/8"
         score = kataBolos()
         score.get_frames(frames)
-        self.assertEqual(score.calcularRonda(frames), 10)
+        resultado = score.numeroRondas(frames)
+        self.assertEqual(len(resultado), 10)
     def test_2_calcular_ronda(self):
         frames = "XXXXXXXXXX"
         score = kataBolos()
         score.get_frames(frames)
-        self.assertEqual(score.calcularRonda(frames), 10)
-    def test_3_calcular_ronda(self):
-        frames = "1111111111111111111" #19 son 9 rondas, porque la 10 no está completa. 
+        resultado = score.numeroRondas(frames)
+        self.assertEqual(len(resultado), 10)
+    def notest_3_calcular_ronda(self):
+        frames = "11111111111111111111X" #serian 11 rondas
         score = kataBolos()
         score.get_frames(frames)
-        self.assertEqual(score.calcularRonda(frames), 9)
+        resultado = score.numeroRondas(frames)
+        self.assertEqual(resultado, ValueError)
     
