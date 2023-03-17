@@ -4,8 +4,9 @@ class kataBolos:
         score = 0
         frames = frames.replace(" ", "")
         frames = frames.replace("-", "0")
+        print(frames)
         lista = self.numeroRondas(frames) #cargo la función para obtener la lista de las diez tiradas
-        print(lista)
+        print(len(lista))
         if (len(lista)) == 10: #tiene que haber 10 rondas
             for e in range(len(lista)):
                 print("elemento", e, lista[e])
@@ -36,6 +37,9 @@ class kataBolos:
                                 else:
                                     score += 10 + self.frame_value(lista[9][1]) + self.frame_value(lista[9][2])# no se si hay que sumar las posiciones 1 y 2
                                     print("pleno pleno y casi",score)
+                            else: 
+                                score += 10 + self.frame_value(lista[9][1])
+                                print("pleno simple", score)
                 elif lista[e][1] == "/": #falta el semipleno al final. Falla la resta de la tirada de delante
                     if e in range(len(lista[0:9])):
                         score += 10 + self.frame_value(lista[e + 1][0])
@@ -95,10 +99,12 @@ class kataBolos:
         string = ''.join(lista)
         string = string.replace("X", "X0")
         final = string.split(",",maxsplit=9)
+        h = []
         if len(final) > 10:
             raise ValueError ("no puede haber más de diez rondas") 
         elif len(final[9]) > 3: 
-            return(final[9][0:2])
+            h.append(final[9][0:3])
+            final = final [0:9] + h
         print(final)
         return (final)
     #def restricciones(self, frames):

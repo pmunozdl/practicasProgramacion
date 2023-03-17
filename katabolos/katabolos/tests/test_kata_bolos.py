@@ -28,7 +28,7 @@ class test_kata_bolos(unittest.TestCase):
         self.escenario_partida(frames, 29)
 
     def test_two_spare(self): # dos semipleno
-        frames = "1/11111/111111111111"
+        frames = "1/11111/1111111111111"
         self.escenario_partida(frames, 38)
 
     def test_a_strike(self): #un pleno
@@ -85,4 +85,5 @@ class test_kata_bolos(unittest.TestCase):
         score.get_frames(frames)
         resultado = score.numeroRondas(frames)
         self.assertEqual(resultado, ValueError)
+
     
