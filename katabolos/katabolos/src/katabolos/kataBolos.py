@@ -12,12 +12,28 @@ class kataBolos:
                 print("elemento", e, lista[e])
                 print(lista)
                 if lista[e][0] == "X":
-                    if e < 9:
+                    if e < 8:
                         if lista [e+1][0] == "X":
                             if lista [e+2][0] == "X":
-                                score += 10 + self.frame_value(lista[e+1]) + self.frame_value(lista[e+2])
+                                score += 10 + self.frame_value(lista[e+1][0]) + self.frame_value(lista[e+2][0])
+                                print("pleno", score)
                             elif lista [e+2][0] != "X":
-                                score += 10 + self.frame_value(lista[e+1])+ self.frame_value(lista[e+2][0])
+                                score += 10 + self.frame_value(lista[e+1][0])+ self.frame_value(lista[e+2][0])
+                                print("pleno", score)
+                        elif lista[e+1][1] == "/":
+                            score += 20
+                            print("pleno y después semipleno",score)
+                        else:
+                            score += 10 + self.frame_value(lista [e+1][0]) + self.frame_value(lista[e+1][1])
+                            print("pleno normal",score)
+                    elif e == 8:
+                        if lista [e+1][0] == "X":
+                            if lista [e+1][1] == "X":
+                                score += 10 + self.frame_value(lista[e+1][0]) + self.frame_value(lista[e+1][1])
+                                print("pleno", score)
+                            elif lista [e+1][1] != "X":
+                                score += 10 + self.frame_value(lista[e+1][0])+ self.frame_value(lista[e+1][1])
+                                print("pleno", score)
                         elif lista[e+1][1] == "/":
                             score += 20
                             print("pleno y después semipleno",score)
@@ -30,7 +46,7 @@ class kataBolos:
                                 score += 20
                                 print("pleno y semipleno en ultima ronda",score)
                             elif lista [9][1] == "X":
-                                score += 10
+                                score += 20
                                 if lista [9][2] =="X":
                                     score += 10
                                     print("pleno pleno pleno",score)
@@ -97,15 +113,21 @@ class kataBolos:
                   listaComas.append(e)
         lista.pop(listaComas[-1])
         string = ''.join(lista)
-        string = string.replace("X", "X0")
         final = string.split(",",maxsplit=9)
         h = []
         if len(final) > 10:
             raise ValueError ("no puede haber más de diez rondas") 
-        elif len(final[9]) > 3: 
-            h.append(final[9][0:3])
-            final = final [0:9] + h
-        print(final)
+        elif len(final[9]) > 3:
+             ultimo = final[9]
+             for e in range(len(ultimo)):
+                 if ultimo[e] != ",":
+                     h.append(ultimo[e])
+                     string = ''.join(h)
+                     primeros = final [0:9]
+                     ultimos = string.split()
+                     final = []
+                     final= primeros + ultimos
+        print("final", final)
         return (final)
     #def restricciones(self, frames):
 #hacer un método de calcular ronda, que me permita saber en qué ronda estoy 

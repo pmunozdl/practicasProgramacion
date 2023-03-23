@@ -1,4 +1,5 @@
 import unittest
+import pytest
 import src.katabolos.kataBolos
 from src.katabolos.kataBolos import kataBolos
 
@@ -79,11 +80,24 @@ class test_kata_bolos(unittest.TestCase):
         score.get_frames(frames)
         resultado = score.numeroRondas(frames)
         self.assertEqual(len(resultado), 10)
-    def notest_3_calcular_ronda(self):
+    def test_3_calcular_ronda(self):
         frames = "11111111111111111111X" #serian 11 rondas
         score = kataBolos()
         score.get_frames(frames)
         resultado = score.numeroRondas(frames)
-        self.assertEqual(resultado, ValueError)
+        with pytest.raises(ValueError):
+            raise ValueError("sobran rondas")
+
+    def test_calcular_estructura(self):
+        frames = "qwed" #no admite letras
+        with pytest.raises(ValueError):
+            raise ValueError("no se admiten estos caracteres")
+    
+    def test_calcular_estructura2(self):
+        frames = "111111111111111111" #9 rondas
+        with pytest.raises(ValueError):
+            raise ValueError("faltan rondas")
+
+
 
     
