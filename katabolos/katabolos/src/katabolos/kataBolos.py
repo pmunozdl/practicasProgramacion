@@ -51,7 +51,7 @@ class kataBolos:
                                     score += 10
                                     print("pleno pleno pleno",score)
                                 else:
-                                    score += 10 + self.frame_value(lista[9][1]) + self.frame_value(lista[9][2])# no se si hay que sumar las posiciones 1 y 2
+                                    score +=self.frame_value(lista[9][2])# no se si hay que sumar las posiciones 1 y 2
                                     print("pleno pleno y casi",score)
                             else: 
                                 score += 10 + self.frame_value(lista[9][1])
@@ -129,15 +129,106 @@ class kataBolos:
                      final= primeros + ultimos
         print("final", final)
         return (final)
-    #def restricciones(self, frames):
-#hacer un método de calcular ronda, que me permita saber en qué ronda estoy 
-#bowling_score("XXX429")
-#restricciones a aplicar: las sumas de cada tirada no puede ser superior a 10
-#plenos solo en posiciones pares. Hacer que X = X0
-#semiplenos solo en posiciones impares. 
-#codigo para test
-# ponerlo todo en distintas funciones, quitar los self. 
-
-
-#tengo que conseguir convertir el string en una lista de las distintas tiradas. Una vez tenga la lista, podré
-#acceder a las distintas tiradas. Clase prueba
+ #para ponerlo en codewars
+ # def bowling_score (frames):
+#         score = 0
+#         frames = frames.replace(" ", "")
+#         frames = frames.replace("-", "0")
+#         lista = numeroRondas(frames) #cargo la función para obtener la lista de las diez tiradas
+#         if (len(lista)) == 10: #tiene que haber 10 rondas
+#             for e in range(len(lista)):
+#                 if lista[e][0] == "X":
+#                     if e < 8:
+#                         if lista [e+1][0] == "X":
+#                                 score += 10 + frame_value(lista[e+1][0])+ frame_value(lista[e+2][0])
+#                         elif lista[e+1][1] == "/":
+#                             score += 20
+#                         else:
+#                             score += 10 + frame_value(lista [e+1][0]) + frame_value(lista[e+1][1])
+#                     elif e == 8:
+#                         if lista [e+1][0] == "X":
+#                             if lista [e+1][1] == "X":
+#                                 score += 10 + frame_value(lista[e+1][0]) + frame_value(lista[e+1][1])
+#                             elif lista [e+1][1] != "X":
+#                                 score += 10 + frame_value(lista[e+1][0])+ frame_value(lista[e+1][1])
+#                         elif lista[e+1][1] == "/":
+#                             score += 20
+#                         else:
+#                             score += 10 + frame_value(lista [e+1][0]) + frame_value(lista[e+1][1])
+#                     elif e == 9:
+#                         if lista[9][0] == "X":
+#                             if lista [9][2] == "/":
+#                                 score += 20
+#                             elif lista [9][1] == "X":
+#                                 score += 20
+#                                 if lista [9][2] =="X":
+#                                     score += 10
+#                                 else:
+#                                     score += 10 + frame_value(lista[9][1]) + frame_value(lista[9][2])
+#                             else: 
+#                                 score += 10 + frame_value(lista[9][1])
+#                 elif lista[e][1] == "/": 
+#                     if e in range(len(lista[0:9])):
+#                         score += 10 + frame_value(lista[e + 1][0])
+#                     elif e == 9:
+#                         if lista[9][1] == "/":
+#                             if lista[9][2] =="X":
+#                                 score += 20
+#                             elif (lista[9][2]).isdigit() == True:
+#                                 score += 10 + frame_value(lista[9][2])                
+#                 elif lista[e].isdigit() == True: #digito
+#                         score += int(lista[e][0])+ int (lista[e][1])  #suma los valores si no hay pleno, o semipleno
+#             return score
+#         else:
+#             raise ValueError ("La partida tiene que tener 10 rondas")
+        
+# def frame_value(frame):
+#         if frame.isdigit() == True:
+#              return int(frame)
+#         elif frame == "X":
+#             return 10
+#         return int(frame)
+    
+# def get_frames(frames):
+#         frames = frames
+       
+# def numeroRondas(frames):
+#         numerorondas = 0 #tiene que llegar a 10
+#         tiradas = 0
+#         frames = frames.replace(" ", "")
+#         lista = []
+#         for e in range(0,len(frames)): #inicio, fin y paso
+#                 if str(frames[e]) == "X":
+#                     numerorondas += 1
+#                     lista.append(frames[e])
+#                     lista.append(",")
+#                 elif str(frames[e]) == "/" or str(frames[e]) == "-" or str(e).isdigit() == True:
+#                     if e <= (len(frames)-1):
+#                         tiradas += 1
+#                         lista.append(frames[e])
+#                         if tiradas % 2 == 0:
+#                             numerorondas += 1
+#                             lista.append(",")
+#                 else:
+#                      raise ValueError("no vale")
+#         listaComas = []
+#         for e in range(len(lista)):
+#              if lista[e] == ",":
+#                   listaComas.append(e)
+#         lista.pop(listaComas[-1])
+#         string = ''.join(lista)
+#         final = string.split(",",maxsplit=9)
+#         h = []
+#         if len(final) > 10:
+#             raise ValueError ("no puede haber más de diez rondas") 
+#         elif len(final[9]) > 3:
+#              ultimo = final[9]
+#              for e in range(len(ultimo)):
+#                  if ultimo[e] != ",":
+#                      h.append(ultimo[e])
+#                      string = ''.join(h)
+#                      primeros = final [0:9]
+#                      ultimos = string.split()
+#                      final = []
+#                      final= primeros + ultimos
+#         return (final)
