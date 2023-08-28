@@ -129,6 +129,14 @@ class kataBolos:
                      final= primeros + ultimos
         print("final", final)
         return (final)
+
+ # mejora de código
+ #tirada = "11-11-11-11-11-11-11-11-11-11"
+ #for i in tirada:
+    #if i == "-":
+        #continue
+    #return (i, end="") #para que no haga salto de linea
+#resultado: 11111111111111111111
  #para ponerlo en codewars
  # def bowling_score (frames):
 #         score = 0
