@@ -1,214 +1,223 @@
-'''
-class PartidaTenis:
+class Tenis:
+    def __init__(self, nombreJugador1, nombreJugador2, max_sets):
+        self.nombreJugador1 = nombreJugador1
+        self.nombreJugador2 = nombreJugador2
+        self.puntosJugador1 = 0
+        self.puntosJugador2 = 0
+        self.setsJugador1 = 0
+        self.setsJugador2 = 0
+        self.juegosJugador1 = 0
+        self.juegosJugador2 = 0
+        self.juegosMaximos = 6
+        self.tieBreak = False
+        self.max_sets = max_sets
+        self.setsParaGanar = (max_sets // 2) + 1  # Número de sets necesarios para ganar el partido
 
-    def __init__(self, jugador1_nombre, jugador2_nombre): #constructor
-        self.jugador1_nombre = jugador1_nombre
-        self.jugador2_nombre = jugador2_nombre
-        self.jugador1_puntos = 0
-        self.jugador2_puntos = 0
-    def punto(self, jugador_nombre, puntos = 1):
-        if jugador_nombre == self.jugador1_nombre:
-            self.jugador1_puntos += puntos
+    def juego(self):
+        if self.tieBreak:
+            return self.tie_break_juego()
+
+        if self.puntosJugador1 >= 4 or self.puntosJugador2 >= 4:
+            diferencia = self.puntosJugador1 - self.puntosJugador2
+            if diferencia == 0:
+                return "Iguales"
+            elif diferencia == 1:
+                return f"Ventaja {self.nombreJugador1}"
+            elif diferencia == -1:
+                return f"Ventaja {self.nombreJugador2}"
+            elif diferencia >= 2:
+                self.juegosJugador1 += 1
+                self.reiniciarPuntos()
+                return self.comprobarGanadorSet()
+            elif diferencia <= -2:
+                self.juegosJugador2 += 1
+                self.reiniciarPuntos()
+                return self.comprobarGanadorSet()
         else:
-            self.jugador2_puntos += puntos
-    def score(self):
-        puntos = Puntuacion(self.jugador1_puntos, self.jugador2_puntos) #llamo al método que crearé más tarde
+            return f"{self.descripcionPuntos(self.puntosJugador1)} - {self.descripcionPuntos(self.puntosJugador2)}"
 
-        if puntos.cero_iguales(): #
-            return "Cero iguales"
-        if puntos.quince_iguales():
-            return "Quince iguales"
-        if puntos.treinta_iguales():
-            return "Treinta iguales"
-        if puntos.cuarenta_iguales(): #deuce
-            return "cuarenta iguales"
-        if puntos.ventaja_jugador1():
-            return "Ventaja para" + self.jugador1_nombre
-        if puntos.ventaja_jugador2():
-            return "Ventaja para" + self.jugador2_nombre
-        if puntos.gana_jugador1():
-            return "Victoria para" + self.jugador1_nombre
-        if puntos.gana_jugador2():
-            return "Victoria para" + self.jugador2_nombre
+    def descripcionPuntos(self, puntos):
+        descripcion = {0: "0", 1: "15", 2: "30", 3: "40"}
+        return descripcion[puntos]
+
+    def ganaPunto(self, player_name):
+        if player_name == self.nombreJugador1:
+            self.puntosJugador1 += 1
+        else:
+            self.puntosJugador2 += 1
+        return self.juego()
+
+    def reiniciarPuntos(self):
+        self.puntosJugador1 = 0
+        self.puntosJugador2 = 0
+
+    def comprobarGanadorSet(self):
+        if self.juegosJugador1 == 6 and self.juegosJugador2 == 6:
+            self.tieBreak = True
+            return "Tie Break"
         
-        resultado = ""
-        nombres_puntos = {
-            0: "Cero",
-            1: "Quince",
-            2: "Treinta",
-            3: "Cuarenta"
-        }
-        resultado += nombres_puntos[self.jugador1_puntos]
-        resultado += "-"
-        resultado += nombres_puntos[self.jugador2_puntos]
-        return resultado
+        if self.juegosJugador1 >= self.juegosMaximos and (self.juegosJugador1 - self.juegosJugador2) >= 2:
+            self.setsJugador1 += 1
+            if self.setsJugador1 > self.max_sets:
+                raise ValueError(f"Se han superado el límite de {self.max_sets} sets")
+            self.reiniciarJuegos()
+            self.tieBreak = False
+            if self.setsJugador1 >= self.setsParaGanar:
+                return f"{self.nombreJugador1} gana el partido"
+            return f"{self.nombreJugador1} gana el set"
+        
+        elif self.juegosJugador2 >= self.juegosMaximos and (self.juegosJugador2 - self.juegosJugador1) >= 2:
+            self.setsJugador2 += 1
+            if self.setsJugador2 > self.max_sets:
+                raise ValueError(f"Se han superado el límite de {self.max_sets} sets")
+            self.reiniciarJuegos()
+            self.tieBreak = False
+            if self.setsJugador2 >= self.setsParaGanar:
+                return f"{self.nombreJugador2} gana el partido"
+            return f"{self.nombreJugador2} gana el set"
 
-    
-class Puntuacion:
-    def __init__(self, jugador1_puntos, jugador2_puntos):
-        self.jugador1_puntos = jugador1_puntos
-        self.jugador2_puntos = jugador2_puntos
-    
-    def jugadores_empate_puntos(self):
-        return self.jugador1_puntos == self.jugador2_puntos
-    def un_jugador_va_ganando(self):
-        return self.jugador1_puntos >= 4 or self.jugador2_puntos >= 4
-    def ventaja_para_jugador1(self):
-        return self.un_jugador_va_ganando() and self.jugador1_puntos - self.jugador2_puntos == 1
-    def ventaja_para_jugador2(self):
-        return self.un_jugador_va_ganando() and self.jugador2_puntos - self.jugador1_puntos == 1
-    def gana_jugador1(self):
-        return self.un_jugador_va_ganando() and self.jugador1_puntos - self.jugador2_puntos >= 2
-    def gana_jugador2(self):
-        return self.un_jugador_va_ganando() and self.jugador2_puntos - self.jugador1_puntos >= 2
-    def empate_a_cero(self):
-        return self.jugador1_puntos == self.jugador2_puntos == 0
-    def empate_a_quince(self):
-        return self.jugador1_puntos == self.jugador2_puntos == 1
-    def empate_a_treinta(self):
-        return self.jugador1_puntos == self.jugador2_puntos == 2
-    def empate_a_cuarenta(self):
-        return self.jugador1_puntos == self.jugador2_puntos == 3
-'''
-from typing import Tuple, List, Optional
+        return f"Games: {self.nombreJugador1} {self.juegosJugador1} - {self.juegosJugador2} {self.nombreJugador2}"
 
-class DisplayScore:
-    ZERO: str = "0"
-    FIFTEEN: str = "15"
-    THIRTY: str = "30"
-    FORTY: str = "40"
-    DEUCE: str = "DEUCE"
-    ADVANTAGE: str = "ADVANTAGE"
-    WIN: str = "WIN"
+    def tie_break_juego(self):
+        if self.puntosJugador1 >= 7 or self.puntosJugador2 >= 7:
+            diferencia = self.puntosJugador1 - self.puntosJugador2
+            if diferencia >= 2:
+                self.setsJugador1 += 1
+                if self.setsJugador1 > self.max_sets:
+                    raise ValueError(f"Se han superado el límite de {self.max_sets} sets")
+                self.reiniciarPuntos()
+                self.reiniciarJuegos()
+                self.tieBreak = False
+                if self.setsJugador1 >= self.setsParaGanar:
+                    return f"{self.nombreJugador1} gana el partido"
+                return f"{self.nombreJugador1} gana el tie break y el set"
+            elif diferencia <= -2:
+                self.setsJugador2 += 1
+                if self.setsJugador2 > self.max_sets:
+                    raise ValueError(f"Se han superado el límite de {self.max_sets} sets")
+                self.reiniciarPuntos()
+                self.reiniciarJuegos()
+                self.tieBreak = False
+                if self.setsJugador2 >= self.setsParaGanar:
+                    return f"{self.nombreJugador2} gana el partido"
+                return f"{self.nombreJugador2} gana el tie break y el set"
+        
+        return f"Tie Break: {self.puntosJugador1} - {self.puntosJugador2}"
 
+    def reiniciarJuegos(self):
+        self.juegosJugador1 = 0
+        self.juegosJugador2 = 0
 
-class Game:
-    def __init__(self) -> None:
-        self.score1: int = 0
-        self.score2: int = 0
-        self.score_diff: int = 0
-        self.display_score1: str = DisplayScore.ZERO
-        self.display_score2: str = DisplayScore.ZERO
-        self.is_deuce_activated: bool = False
-
-    def get_display_scores(self) -> Tuple[str, str]:
-        return self.display_score1, self.display_score2
-
-    def add_points(self, points1: int, points2: int):
-        if points1 < 0 or points2 < 0:
-            raise ValueError("Points winned must be positive")
-
-        self.score1 += points1
-        self.score2 += points2
-        self.score_diff = abs(self.score1 - self.score2)
-
-        if self.score1 >= 3 and self.score2 >= 3:
-            self.is_deuce_activated = True
-
-        if self.is_deuce_activated and self.score_diff > 2:
-            raise ValueError(
-                "Points difference must be inferior or equal to 2 when deuce activated"
-            )
-
-        if (self.score1 > 4 and self.score2 < 3) or (
-            self.score2 > 4 and self.score1 < 3
-        ):
-            raise ValueError(
-                "A player's points cannot be above 4 if the other player's points is less than 3"
-            )
-
-        self.set_display_scores()
-
-    def set_display_scores(self):
-
-        if not self.is_deuce_activated:
-            if self.score1 == 1:
-                self.display_score1 = DisplayScore.FIFTEEN
-            if self.score2 == 1:
-                self.display_score2 = DisplayScore.FIFTEEN
-
-            if self.score1 == 2:
-                self.display_score1 = DisplayScore.THIRTY
-            if self.score2 == 2:
-                self.display_score2 = DisplayScore.THIRTY
-
-            if self.score1 == 3:
-                self.display_score1 = DisplayScore.FORTY
-            if self.score2 == 3:
-                self.display_score2 = DisplayScore.FORTY
-
-            if self.score1 == 4:
-                self.display_score1 = DisplayScore.WIN
-            if self.score2 == 4:
-                self.display_score2 = DisplayScore.WIN
-
+    def match_score(self):
+        if self.tieBreak:
+            puntos_display = f"Tie Break -> {self.nombreJugador1} {self.puntosJugador1} - {self.puntosJugador2} {self.nombreJugador2}"
         else:
-            self.display_score1 = DisplayScore.DEUCE
-            self.display_score2 = DisplayScore.DEUCE
-
-            is_player1_winning: bool = self.score1 > self.score2
-            if self.score_diff == 1:
-                if is_player1_winning:
-                    self.display_score1 = DisplayScore.ADVANTAGE
-                else:
-                    self.display_score2 = DisplayScore.ADVANTAGE
-
-            if self.score_diff == 2:
-                if is_player1_winning:
-                    self.display_score1 = DisplayScore.WIN
-                else:
-                    self.display_score2 = DisplayScore.WIN
+            puntos_display = f"{self.nombreJugador1} {self.descripcionPuntos(self.puntosJugador1)} - {self.descripcionPuntos(self.puntosJugador2)} {self.nombreJugador2}"
+        
+        return (f"Sets: {self.nombreJugador1} {self.setsJugador1} - {self.setsJugador2} {self.nombreJugador2}, "
+                f"Games: {self.nombreJugador1} {self.juegosJugador1} - {self.juegosJugador2} {self.nombreJugador2}, "
+                f"Points: {puntos_display}")
 
 
-class Set:
-    def __init__(self, player1, player2) -> None:
-        self.player1: str = player1
-        self.player2: str = player2
-        self.winner: Optional[str] = None
-        self.game: Game = Game()
-        self.games_won_by_player_1: int = 0
-        self.games_won_by_player_2: int = 0
-        self.display_scores: List[Tuple[str, str]] = []
-        self.is_seventh_game_required: bool = False
+# class Tenis:
+#     def __init__(self, nombreJugador1, nombreJugador2):
+#         self.nombreJugador1 = nombreJugador1
+#         self.nombreJugador2 = nombreJugador2
+#         self.puntosJugador1 = 0
+#         self.puntosJugador2 = 0
+#         self.setsJugador1 = 0
+#         self.setsJugador2 = 0
+#         self.juegosJugador1 = 0
+#         self.juegosJugador2 = 0
+#         self.juegosMaximos = 6
+#         self.tieBreak = False
 
-    def add_points(self, points1: int, points2: int):
-        if self.winner:
-            raise ValueError(
-                "The set is already finished! The winner is " + self.winner
-            )
+#     def juego(self):
+#         if self.tieBreak:
+#             return self.tie_break_juego()
 
-        self.game.add_points(points1, points2)
-        result1, result2 = self.game.display_score1, self.game.display_score2
+#         if self.puntosJugador1 >= 4 or self.puntosJugador2 >= 4:
+#             diferencia = self.puntosJugador1 - self.puntosJugador2
+#             if diferencia == 0:
+#                 return "Iguales"
+#             elif diferencia == 1:
+#                 return f"Ventaja {self.nombreJugador1}"
+#             elif diferencia == -1:
+#                 return f"Ventaja {self.nombreJugador2}"
+#             elif diferencia >= 2:
+#                 self.juegosJugador1 += 1
+#                 self.reiniciarPuntos()
+#                 return self.comprobarGanadorSet()
+#             elif diferencia <= -2:
+#                 self.juegosJugador2 += 1
+#                 self.reiniciarPuntos()
+#                 return self.comprobarGanadorSet()
+#         else:
+#             return f"{self.descripcionPuntos(self.puntosJugador1)} - {self.descripcionPuntos(self.puntosJugador2)}"
 
-        game_won = False
-        if result1 == DisplayScore.WIN:
-            game_won = True
-            self.games_won_by_player_1 += 1
-            if (
-                not self.is_seventh_game_required and self.games_won_by_player_1 == 6
-            ) or (self.is_seventh_game_required and self.games_won_by_player_1 == 7):
-                self.winner = self.player1
+#     def descripcionPuntos(self, puntos):
+#         descripcion = {0: "0", 1: "15", 2: "30", 3: "40"}
+#         return descripcion[puntos]
 
-        elif result2 == DisplayScore.WIN:
-            game_won = True
-            self.games_won_by_player_2 += 1
-            if (
-                not self.is_seventh_game_required and self.games_won_by_player_2 == 6
-            ) or (self.is_seventh_game_required and self.games_won_by_player_2 == 7):
-                self.winner = self.player2
+#     def ganaPunto(self, player_name):
+#         if player_name == self.nombreJugador1:
+#             self.puntosJugador1 += 1
+#         else:
+#             self.puntosJugador2 += 1
+#         return self.juego()
 
-        if game_won:
-            self.display_scores.append((result1, result2))
-            self.game = Game()
+#     def reiniciarPuntos(self):
+#         self.puntosJugador1 = 0
+#         self.puntosJugador2 = 0
 
-        if self.games_won_by_player_1 >= 5 and self.games_won_by_player_2 >= 5:
-            self.is_seventh_game_required = True
+#     def comprobarGanadorSet(self):
+#         if self.juegosJugador1 == 6 and self.juegosJugador2 == 6:
+#             self.tieBreak = True
+#             return "Tie Break"
+        
+#         if self.juegosJugador1 >= self.juegosMaximos and (self.juegosJugador1 - self.juegosJugador2) >= 2:
+#             self.setsJugador1 += 1
+#             self.reiniciarJuegos()
+#             self.tieBreak = False
+#             return f"{self.nombreJugador1} gana el set"
+#         elif self.juegosJugador2 >= self.juegosMaximos and (self.juegosJugador2 - self.juegosJugador1) >= 2:
+#             self.setsJugador2 += 1
+#             self.reiniciarJuegos()
+#             self.tieBreak = False
+#             return f"{self.nombreJugador2} gana el set"
 
-    def get_current_game_display_scores(self) -> Tuple[str, str]:
-        return self.game.get_display_scores()
+#         return f"Games: {self.nombreJugador1} {self.juegosJugador1} - {self.juegosJugador2} {self.nombreJugador2}"
 
-    def get_previous_games_display_scores(self) -> List[Tuple[str, str]]:
-        return self.display_scores
+#     def tie_break_juego(self):
+#         # Lógica de puntuación para el tie break
+#         if self.puntosJugador1 >= 7 or self.puntosJugador2 >= 7:
+#             diferencia = self.puntosJugador1 - self.puntosJugador2
+#             if diferencia >= 2:
+#                 self.setsJugador1 += 1
+#                 self.reiniciarPuntos()
+#                 self.reiniciarJuegos()
+#                 self.tieBreak = False
+#                 return f"{self.nombreJugador1} gana el tie break y el set"
+#             elif diferencia <= -2:
+#                 self.setsJugador2 += 1
+#                 self.reiniciarPuntos()
+#                 self.reiniciarJuegos()
+#                 self.tieBreak = False
+#                 return f"{self.nombreJugador2} gana el tie break y el set"
+        
+#         return f"Tie Break: {self.puntosJugador1} - {self.puntosJugador2}"
 
-    def get_winner(self) -> Optional[str]:
-        return self.winner
+#     def reiniciarJuegos(self):
+#         self.juegosJugador1 = 0
+#         self.juegosJugador2 = 0
+
+#     def match_score(self):
+#         if self.tieBreak:
+#             puntos_display = f"Tie Break -> {self.nombreJugador1} {self.puntosJugador1} - {self.puntosJugador2} {self.nombreJugador2}"
+#         else:
+#             puntos_display = f"{self.nombreJugador1} {self.descripcionPuntos(self.puntosJugador1)} - {self.descripcionPuntos(self.puntosJugador2)} {self.nombreJugador2}"
+        
+#         return (f"Sets: {self.nombreJugador1} {self.setsJugador1} - {self.setsJugador2} {self.nombreJugador2}, "
+#                 f"Games: {self.nombreJugador1} {self.juegosJugador1} - {self.juegosJugador2} {self.nombreJugador2}, "
+#                 f"Points: {puntos_display}")
+
